@@ -15,7 +15,7 @@ it) into SQLite, you're welcome, of course.
 CREATE TABLE redirects (
 	gid INTEGER PRIMARY KEY ASC,
 	domain TEXT,
-	order INTEGER,
+	ordering INTEGER,
 	path TEXT,
 	dest TEXT
 );
@@ -23,7 +23,7 @@ CREATE TABLE redirects (
 
  * `gid` is just a global id, should be MAX(gid)+1
  * `domain` is the domain for which this rule counts, something like `example.com`
- * `order` is an integer denoting the order in which the paths should be matched, first one that matches, wins
+ * `ordering` is an integer denoting the order in which the paths should be matched, first one that matches, wins
  * `path` is the URI to match on, should always start with a `/`
  * `dest` is the destination to which a client should be redirected
 
@@ -36,7 +36,7 @@ This should help in debugging:
  1. Check whether the entire URL is in memcache
    * If so, get the resulting redirect destination from memcache and redirect the client to it, script ends here
  1. Open the sqlite database
- 1. Get all records for the requested domain out of the database, sorted by the `order` column, ascending.
+ 1. Get all records for the requested domain out of the database, sorted by the `ordering` column, ascending.
    * If the URL start with `www.`, that part is removed
    * If there are no records, redirect to the `default` entry
  1. If there's just one record, immediately redirect to that destination, without checking path, script ends here
@@ -52,3 +52,7 @@ This should help in debugging:
  * The domains are case-insensitive, but the paths aren't. Also, there's currently no way to quickly make a check
    case-insensitive (as with the `i` option in normal regex), so if case is expected to be important, you need to
    use the `[aA][bB]` trick.
+
+## Notes
+
+ * `ordering` is used because `order` is a reserved keyword in sqlite and I couldn't come up with anything better.
