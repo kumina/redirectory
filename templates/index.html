@@ -1,0 +1,22 @@
+$def with (domains)
+
+<html>
+<head>
+<title>Redirectory</title>
+</head>
+<body>
+<h1>Redirectory</h1>
+<p>This application is used to create a database with redirects. The data is stored in a sqlite database, which is fast and portable.</p>
+<p>Domains:</p>
+$if len(domains) == 0:
+	<p>No domains found.</p>
+$else:
+	$for domain in domains:
+		$if loop.first:
+			<table><thead><td>Domain</td><td>Aliases</td></thead>
+		<tr><td><a href="/domain?id=$domain.id">$domain.name</a></td><td>$domain.subdomains</td></tr>
+		$if loop.last:
+			</table>
+<p><a href="/add-domain">Add a new domain</a></p>
+</body>
+</html>
