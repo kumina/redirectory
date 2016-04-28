@@ -52,6 +52,7 @@ This should help in debugging:
  * The domains are case-insensitive, but the paths aren't. Also, there's currently no way to quickly make a check
    case-insensitive (as with the `i` option in normal regex), so if case is expected to be important, you need to
    use the `[aA][bB]` trick.
+ * Redirects are always of the permanent kind (301).
 
 ## Notes
 
