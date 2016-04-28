@@ -49,3 +49,6 @@ This should help in debugging:
  * It's never necessary to add both `example.com` and `www.example.com` in the database, the `www.` variant is
    automatically assumed as well. (The `www.` part is actually removed from the requested URL before checking.)
  * An entry with `domain` "default" should be entered which contains a default destination for unmatched domains.
+ * The domains are case-insensitive, but the paths aren't. Also, there's currently no way to quickly make a check
+   case-insensitive (as with the `i` option in normal regex), so if case is expected to be important, you need to
+   use the `[aA][bB]` trick.
