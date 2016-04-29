@@ -19,6 +19,8 @@ CREATE TABLE redirects (
 	path TEXT,
 	dest TEXT
 );
+
+CREATE INDEX domain_in_redirects ON redirects (domain);
 ```
 
  * `gid` is just a global id, should be MAX(gid)+1
