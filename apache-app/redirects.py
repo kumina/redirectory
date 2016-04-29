@@ -28,6 +28,14 @@ def lookahead(iterable):
 
 
 def handler(req):
+    # Get all environment variables
+    env_vars = req.get_options()
+    # See if we want to override the percentage of requests that trigger a stat
+    # on the database
+    if 'STAT_PERCENTAGE' in env_vars:
+        percentage_to_stat = int(env_vars['STAT_PERCENTAGE'])
+    else:
+        percentage_to_stat = 1
     # Path to the redirects database
     db = os.path.join(__dir__, 'redirects.sql')
     # Memcache connection
@@ -41,7 +49,7 @@ def handler(req):
     # In 1% of the time, we want to stat the db, to see if we need to
     # invalidate the current cache.
     x = random.randint(0, 100)
-    if x < 1:
+    if x < percentage_to_stat:
         db_stat = os.stat(db)
         if db_stat.st_mtime > last_mtime:
             last_mtime = db_stat.st_mtime
