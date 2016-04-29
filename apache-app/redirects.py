@@ -72,7 +72,7 @@ def handler(req):
         # Get all data concerning this domain.
         cur.execute(("SELECT * FROM redirects " +
                      "WHERE domain = '%s' " +
-                     "ORDER BY ordering") % host)
+                     "ORDER BY ordering, gid") % host)
         # Get the results (rowcount doesn't work with sqlite)
         result = cur.fetchall()
         if len(result) == 0:
