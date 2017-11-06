@@ -1,7 +1,6 @@
 import sqlite3
 import re
 import web
-import memcache
 
 
 urls = (

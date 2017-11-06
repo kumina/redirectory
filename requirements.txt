@@ -1,5 +1,4 @@
 argparse==1.2.1
-python-memcached==1.57
 six==1.10.0
 web.py==0.37
 wsgiref==0.1.2

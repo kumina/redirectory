@@ -1,8 +1,7 @@
 # Redirectory - redirect with ease
 
 This is a simple script that allows Apache to read a database with a mod\_python script to determine where a certain
-domain should redirect to. The database is a simple SQLite database, currently, but a memcache backend is used as well
-to cache requests more easily.
+domain should redirect to. The database is a simple SQLite database.
 
 This project consists of two parts, the Apache script and vhost config and the web.py application to ease the input
 of data. Both can be run separately, but the SQLite database from the web.py script should then be copied over to the
@@ -33,10 +32,6 @@ CREATE INDEX domain_in_redirects ON redirects (domain);
 
 This should help in debugging:
 
- 1. There's a 1% chance that the sqlite database is checked to see if it has been modified since the last time
-   * If so, clear memcache and skip the memcache check
- 1. Check whether the entire URL is in memcache
-   * If so, get the resulting redirect destination from memcache and redirect the client to it, script ends here
  1. Open the sqlite database
  1. Get all records for the requested domain out of the database, sorted by the `ordering` column, ascending.
    * If the URL start with `www.`, that part is removed
